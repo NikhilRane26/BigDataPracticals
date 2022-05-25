@@ -1,0 +1,27 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+df=pd.read_csv('D:\Python Programs\Social_Network_Ads.csv')
+x=df.iloc[:,[2,3]]
+y=df.iloc[:,[4]]
+print(x)
+print(y)
+
+from sklearn.model_selection import train_test_split
+x_test,x_train,y_test,y_train=train_test_split(x,y,test_size=0.25)
+
+from sklearn.preprocessing import StandardScaler
+ss=StandardScaler()
+ss.fit(x_train)
+x_train=ss.transform(x_train)
+x_test=ss.transform(x_test)
+
+from sklearn.svm import SVC
+a=SVC()
+a.fit(x_train,y_train)
+y_predict=a.predict(x_test)
+print(y_predict)
+
+from sklearn import metrics
+print(metrics.accuracy_score(y_test,y_predict))
