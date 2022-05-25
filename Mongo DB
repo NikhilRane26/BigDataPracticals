@@ -1,0 +1,4 @@
+show dbs
+use university
+show collections
+db.student.insert({"roll no":1,"name":"Nikhil","Course":"Msc.IT","address":"Jogeshwari"})
