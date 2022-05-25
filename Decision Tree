@@ -1,0 +1,31 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df=pd.read_csv('D:\Python Programs\Social_Network_Ads.csv')
+print(df)
+x=df[['Age','EstimatedSalary']]
+y=df['Purchased']
+print(x)
+print(y)
+      
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.25)
+x_test.shape,y_test.shape,x_train.shape,y_train.shape
+
+from sklearn.preprocessing import MinMaxScaler
+mm=MinMaxScaler()
+mm.fit(x_train)
+x_train_a=mm.transform(x_train)
+x_test_a=mm.transform(x_test)
+x_train_a
+x_test_a
+
+from sklearn.tree import DecisionTreeClassifier
+DT=DecisionTreeClassifier()
+DT.fit(x_train_a,y_train)
+
+y_predict=DT.predict(x_test_a)
+print(DT.score(x_test_a,y_test))
+plt.scatter(x_test[y_test==0]['Age'],x_test[y_test==0]['EstimatedSalary'],c='red',alpha=0.7)
+plt.scatter(x_test[y_test==1]['Age'],x_test[y_test==1]['EstimatedSalary'],c='blue',alpha=0.7)
+plt.show()
